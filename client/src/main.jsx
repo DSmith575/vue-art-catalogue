@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 import "./index.css";
 
@@ -8,7 +8,7 @@ import ArtForm from "./components/ArtForm";
 import Entries from "./components/Entries";
 import Entry from "./components/Entry";
 
-const router = createBrowserRouter([
+const routes = [
   {
     path: "/",
     element: <ArtForm />,
@@ -20,8 +20,28 @@ const router = createBrowserRouter([
   {
     path: "/entries/:uuid",
     element: <Entry />,
-  },
-]);
+  }
+]
+
+const AppLayout = () => {
+  return (
+    <>
+    <Outlet/>
+    </>
+  )
+}
+
+const routerConfig = [
+  {
+    element: <AppLayout />,
+    children: routes.map((route) => ({
+      path: route.path,
+      element: route.element,
+    })),
+  }
+];
+
+const router = createBrowserRouter(routerConfig);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
