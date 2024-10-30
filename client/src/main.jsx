@@ -8,7 +8,6 @@ import ArtForm from "./components/ArtForm";
 import Entries from './components/Entries';
 import Error from './components/Error'
 import Entry from "./components/Entry";
-impo
 
 const routes = [
   {
