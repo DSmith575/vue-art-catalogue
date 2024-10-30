@@ -4,52 +4,52 @@ import { Link } from "react-router-dom";
 const Entries = () => {
   const apiBaseURL = import.meta.env.VITE_API_BASE_URL;
 
-  // const [message, setMessage] = useState("Loading entries...");
-  // const [entries, setEntries] = useState([]);
-  // const [sortByLastName, setSortByLastName] = useState(true);
+  const [message, setMessage] = useState("Loading entries...");
+  const [entries, setEntries] = useState([]);
+  const [sortByLastName, setSortByLastName] = useState(true);
 
-  // useEffect(() => {
-  //   const loadEntries = async () => {
-  //     try {
-  //       const res = await fetch(`${apiBaseURL}/catalogue-items/`, {
-  //         method: "GET",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-  //       const data = await res.json();
-  //       const entriesData = data.data || [];
-  //       setEntries(entriesData);
-  //       setMessage(
-  //         entriesData.length > 0
-  //           ? "Select an entry to view details."
-  //           : "No entries found."
-  //       );
-  //     } catch (error) {
-  //       setMessage("Failed to load entries.");
-  //     }
-  //   };
-  //   loadEntries();
-  // }, []);
+  useEffect(() => {
+    const loadEntries = async () => {
+      try {
+        const res = await fetch(`${apiBaseURL}/catalogue-items/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await res.json();
+        const entriesData = data.data || [];
+        setEntries(entriesData);
+        setMessage(
+          entriesData.length > 0
+            ? "Select an entry to view details."
+            : "No entries found."
+        );
+      } catch (error) {
+        setMessage("Failed to load entries.");
+      }
+    };
+    loadEntries();
+  }, []);
 
-  // const toggleSortBy = () => {
-  //   setSortByLastName((prevSortByLastName) => !prevSortByLastName);
-  //   const sortedEntries = [...entries].sort((a, b) => {
-  //     if (sortByLastName) {
-  //       return a.items[0]?.lastName?.localeCompare(b.items[0]?.lastName);
-  //     } else {
-  //       return (a.items[0]?.siteMap || 0) - (b.items[0]?.siteMap || 0);
-  //     }
-  //   });
-  //   setEntries(sortedEntries);
-  // };
+  const toggleSortBy = () => {
+    setSortByLastName((prevSortByLastName) => !prevSortByLastName);
+    const sortedEntries = [...entries].sort((a, b) => {
+      if (sortByLastName) {
+        return a.items[0]?.lastName?.localeCompare(b.items[0]?.lastName);
+      } else {
+        return (a.items[0]?.siteMap || 0) - (b.items[0]?.siteMap || 0);
+      }
+    });
+    setEntries(sortedEntries);
+  };
 
   return (
     <article className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-md">
       <header>
         <h1 className="text-2xl font-bold text-gray-700 mb-4">Entries</h1>
       </header>
-{/* 
+
       <section>
         <p className="text-gray-700 mb-4">{message}</p>
       </section>
@@ -89,7 +89,7 @@ const Entries = () => {
             </li>
           </Link>
         ))}
-      </ul> */}
+      </ul>
     </article>
   );
 };
